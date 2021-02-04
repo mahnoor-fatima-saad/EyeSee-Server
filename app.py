@@ -1,6 +1,8 @@
+import flask
 from flask import Flask
 from flask import request, jsonify
 
+from source.model_classes.fundus import Fundus
 
 app = Flask(__name__)
 
@@ -13,6 +15,9 @@ def check_conn():
 
     encoded_json = jsonify(json_file)
     return encoded_json
+
+
+
 
 
 if __name__ == '__main__':
