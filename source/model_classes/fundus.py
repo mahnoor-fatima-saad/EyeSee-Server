@@ -6,21 +6,28 @@ from keras.applications.resnet50 import preprocess_input
 import numpy as np
 from PIL import Image, ImageOps
 
+import os
+
+project_path = 'C:\\Users\\Hassan Javaid\\PycharmProjects\\EyeSee-Server\\'
+detection_model_path = 'models\\fundus\\fundus_detection.h5'
+model_path = 'models\\fundus\\fundus_disease_detection.h5'
+
 
 class Fundus:
 
     def __init__(self):
-        self.detection_model = load_model('../../models/fundus/fundus_detection.h5')
-        self.model = load_model('../../models/fundus/fundus_disease_detection.h5')
-        self.json_file = {'is_fundus': 'false', 'result': 'normal', 'percentage': '0'}
+        self.detection_model = load_model(os.path.join(project_path, detection_model_path), compile=False)
+        self.model = load_model(os.path.join(project_path, model_path), compile=False)
+        self.json_file = {'is_fundus': 'false', 'result': '0', 'percentage': '0'}
 
     def preprocess_image_for_analysis(self, image):
-        processed_image = load_img(image, target_size=(224, 224))
+        image = Image.open(image)
+        image.save('fundus_img.jpg')
+        processed_image = load_img('./fundus_img.jpg', target_size=(224, 224))
         processed_image = img_to_array(processed_image)
         processed_image = processed_image.reshape((1, processed_image.shape[0],
                                                    processed_image.shape[1], processed_image.shape[2]))
         # processed_image = preprocess_input(processed_image)
-
         return processed_image
 
     def preprocess_image_for_detection(self, image):
@@ -38,7 +45,7 @@ class Fundus:
         # returns a 2D array
         prediction = self.detection_model.predict(image)
 
-        # get label - 0 fundus & 1 notfundus
+        # get label - 0 fundus & 1 not-fundus
         label = np.argmax(prediction[0])
 
         if label == 0:
@@ -55,9 +62,9 @@ class Fundus:
         elif label == 1:
             return 'Glaucoma'
         elif label == 2:
-            return 'Normal'
-        elif label == 3:
             return 'Myopia'
+        elif label == 3:
+            return 'Normal'
         else:
             return 'Undefined'
 
@@ -72,7 +79,6 @@ class Fundus:
         percentage = prediction[0][index]
         percentage = str(round(percentage * 100, 4))
         self.json_file['percentage'] = percentage
-        return
 
     def prediction(self, image):
         # Pre process image
@@ -85,5 +91,6 @@ class Fundus:
         else:
             # Pre process image
             preprocess_for_analysis = self.preprocess_image_for_analysis(image)
+
             self.check_fundus_diseases(preprocess_for_analysis)
             return self.json_file

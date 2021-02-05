@@ -24,10 +24,11 @@ def fundus_analysis():
 
     try:
         image = request.files.get('image', '')
+        return fundus.prediction(image)
     except Exception as err:
         print(err)
 
-    return fundus.prediction(image)
+    return fundus.json_file
 
 
 if __name__ == '__main__':
