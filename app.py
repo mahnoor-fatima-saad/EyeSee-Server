@@ -17,7 +17,17 @@ def check_conn():
     return encoded_json
 
 
+@app.route('/fundus', methods=['POST'])
+def fundus_analysis():
 
+    fundus = Fundus()
+
+    try:
+        image = request.files.get('image', '')
+    except Exception as err:
+        print(err)
+
+    return fundus.prediction(image)
 
 
 if __name__ == '__main__':

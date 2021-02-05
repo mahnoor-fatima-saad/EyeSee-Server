@@ -1,5 +1,3 @@
-from source.utilities.singleton import Singleton
-
 from keras.models import load_model
 from keras.preprocessing.image import load_img
 from keras.preprocessing.image import img_to_array
@@ -9,7 +7,6 @@ import numpy as np
 from PIL import Image, ImageOps
 
 
-@Singleton
 class Fundus:
 
     def __init__(self):
