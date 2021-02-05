@@ -18,7 +18,7 @@ class Fundus:
     def __init__(self):
         self.detection_model = load_model(os.path.join(project_path, detection_model_path), compile=False)
         self.model = load_model(os.path.join(project_path, model_path), compile=False)
-        self.json_file = {'is_fundus': 'false', 'result': '0', 'percentage': '0'}
+        self.json_file = {'is_fundus': 'false', 'result': '0', 'percentage': '0', 'predicted': True}
 
     def preprocess_image_for_analysis(self, image):
         image = Image.open(image)
@@ -77,8 +77,12 @@ class Fundus:
         self.json_file['result'] = label
         # get percentage
         percentage = prediction[0][index]
-        percentage = str(round(percentage * 100, 4))
-        self.json_file['percentage'] = percentage
+        percentage = round(percentage * 100, 4)
+        if percentage < 80.0:
+            self.json_file['predicted'] = False
+            print('Percentage: ' + str(percentage))
+            return
+        self.json_file['percentage'] = str(percentage)
 
     def prediction(self, image):
         # Pre process image
