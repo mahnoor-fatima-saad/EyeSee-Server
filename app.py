@@ -2,17 +2,16 @@ import flask
 from flask import Flask
 from flask import request, jsonify
 
-from source.model_classes.fundus import Fundus
+from source.models.disorders import Disorders
+from source.models.fundus import Fundus
 
 app = Flask(__name__)
 
 
 @app.route('/check_conn', methods=['GET'])
 def check_conn():
-    json_file = {}
-    json_file['connection'] = 'connected'
-    json_file['status'] = True
 
+    json_file = {'connection': 'connected', 'status': True}
     encoded_json = jsonify(json_file)
     return encoded_json
 
@@ -29,6 +28,12 @@ def fundus_analysis():
         print(err)
 
     return fundus.json_file
+
+
+@app.route('/disorders', methods=['POST'])
+def disorders_analysis():
+
+    disorders = Disorders()
 
 
 if __name__ == '__main__':

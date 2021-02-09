@@ -8,16 +8,24 @@ from PIL import Image, ImageOps
 
 import os
 
-project_path = 'C:\\Users\\Hassan Javaid\\PycharmProjects\\EyeSee-Server\\'
-detection_model_path = 'models\\fundus\\fundus_detection.h5'
-model_path = 'models\\fundus\\fundus_disease_detection.h5'
+from source.utilities.directories import project_path
 
 
 class Fundus:
 
+    @staticmethod
+    def get_detection_model_path():
+        detection_model_path = 'models\\fundus\\fundus_detection.h5'
+        return detection_model_path
+
+    @staticmethod
+    def get_model_path():
+        model_path = 'models\\fundus\\fundus_disease_detection.h5'
+        return model_path
+
     def __init__(self):
-        self.detection_model = load_model(os.path.join(project_path, detection_model_path), compile=False)
-        self.model = load_model(os.path.join(project_path, model_path), compile=False)
+        self.detection_model = load_model(os.path.join(project_path, Fundus.get_detection_model_path()), compile=False)
+        self.model = load_model(os.path.join(project_path, Fundus.get_model_path()), compile=False)
         self.json_file = {'is_fundus': 'false', 'result': '0', 'percentage': '0', 'predicted': True}
 
     def preprocess_image_for_analysis(self, image):
