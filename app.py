@@ -38,6 +38,7 @@ def disorders_analysis():
     disorders = Disorders()
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     try:
         image = request.files.get('image', '')
         return disorders.prediction(image)
@@ -47,6 +48,8 @@ def disorders_analysis():
     return disorders.json_file
 
 =======
+=======
+>>>>>>> Stashed changes
 @app.route('/diseases', methods=['POST'])
 def disease_analysis():
     diseases = Disease()
@@ -62,6 +65,9 @@ def disease_analysis():
 @app.route('/infections', methods=['POST'])
 def infection_analysis():
     infections = Infection()
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 
 if __name__ == '__main__':
