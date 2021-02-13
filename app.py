@@ -4,6 +4,8 @@ from flask import request, jsonify
 
 from source.models.disorders import Disorders
 from source.models.fundus import Fundus
+from source.models.diseases import Disease
+from source.models.infections import Infection
 
 app = Flask(__name__)
 
@@ -35,6 +37,7 @@ def disorders_analysis():
 
     disorders = Disorders()
 
+<<<<<<< Updated upstream
     try:
         image = request.files.get('image', '')
         return disorders.prediction(image)
@@ -43,6 +46,23 @@ def disorders_analysis():
 
     return disorders.json_file
 
+=======
+@app.route('/diseases', methods=['POST'])
+def disease_analysis():
+    diseases = Disease()
+
+    try:
+        image = request.files.get('image', '')
+        return diseases.check_disease(image)
+    except Exception as err:
+        print(err)
+
+    return diseases.json_file
+
+@app.route('/infections', methods=['POST'])
+def infection_analysis():
+    infections = Infection()
+>>>>>>> Stashed changes
 
 if __name__ == '__main__':
     app.run()

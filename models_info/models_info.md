@@ -4,4 +4,7 @@
 ## disorders
 > disorder_detection.h5
 ## diseases
-> eye_detection_model.h5
+> detection_model.h5
+> eye_disease_detection.h5
+##infections
+> infection_detection.h5

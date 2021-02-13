@@ -25,6 +25,7 @@ class Fundus:
 
     def __init__(self):
         self.detection_model = load_model(os.path.join(project_path, Fundus.get_detection_model_path()), compile=False)
+
         self.model = load_model(os.path.join(project_path, Fundus.get_model_path()), compile=False)
         self.json_file = {'is_fundus': 'false', 'result': '0', 'percentage': '0', 'predicted': True}
 
