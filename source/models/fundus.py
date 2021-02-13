@@ -63,7 +63,8 @@ class Fundus:
         else:
             return False
 
-    def get_analysis_label(self, label):
+    @staticmethod
+    def get_analysis_label(label):
         label = int(label)
         if label == 0:
             return 'Cataract'
@@ -80,7 +81,7 @@ class Fundus:
         prediction = self.model.predict(image)
         index = int(np.argmax(prediction[0]))
         # get label through index
-        label = self.get_analysis_label(index)
+        label = Fundus.get_analysis_label(index)
         # update json
         self.json_file['result'] = label
         # get percentage

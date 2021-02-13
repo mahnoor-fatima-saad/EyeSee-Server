@@ -35,6 +35,14 @@ def disorders_analysis():
 
     disorders = Disorders()
 
+    try:
+        image = request.files.get('image', '')
+        return disorders.prediction(image)
+    except Exception as err:
+        print(err)
+
+    return disorders.json_file
+
 
 if __name__ == '__main__':
     app.run()
