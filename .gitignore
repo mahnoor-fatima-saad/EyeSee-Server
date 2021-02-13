@@ -2,3 +2,4 @@
 .idea/Eyesee-Server.iml
 .idea/Eyesee-Server.iml
 .idea/misc.xml
+source/utilities/directories.py
