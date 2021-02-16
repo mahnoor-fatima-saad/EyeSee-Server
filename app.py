@@ -12,7 +12,6 @@ app = Flask(__name__)
 
 @app.route('/check_conn', methods=['GET'])
 def check_conn():
-
     json_file = {'connection': 'connected', 'status': True}
     encoded_json = jsonify(json_file)
     return encoded_json
@@ -20,7 +19,6 @@ def check_conn():
 
 @app.route('/fundus', methods=['POST'])
 def fundus_analysis():
-
     fundus = Fundus()
 
     try:
@@ -32,19 +30,17 @@ def fundus_analysis():
     return fundus.json_file
 
 
-@app.route('/disorders', methods=['POST'])
-def disorders_analysis():
-
-    disorders = Disorders()
-
-
-    try:
-        image = request.files.get('image', '')
-        return disorders.prediction(image)
-    except Exception as err:
-        print(err)
-
-    return disorders.json_file
+# @app.route('/disorders', methods=['POST'])
+# def disorders_analysis():
+#     disorders = Disorders()
+#
+#     try:
+#         image = request.files.get('image', '')
+#         return disorders.prediction(image)
+#     except Exception as err:
+#         print(err)
+#
+#     return disorders.json_file
 
 
 @app.route('/diseases', methods=['POST'])
@@ -59,9 +55,11 @@ def disease_analysis():
 
     return diseases.json_file
 
-@app.route('/infections', methods=['POST'])
-def infection_analysis():
-    infections = Infection()
+
+# @app.route('/infections', methods=['POST'])
+# def infection_analysis():
+#     infections = Infection()
+
 
 if __name__ == '__main__':
     app.run()

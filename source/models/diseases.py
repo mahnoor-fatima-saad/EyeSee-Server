@@ -22,8 +22,10 @@ class Disease:
 
     def __init__(self):
 
-        self.eye_detection_model = tf.keras.models.load_model(os.path.join(project_path, Disease.get_detection_model_path()), compile = False)
-        self.eye_disease_model = tf.keras.models.load_model(os.path.join(project_path, Disease.get_model_path()), compile=False)
+        self.eye_detection_model = tf.keras.models.load_model(
+            os.path.join(project_path, Disease.get_detection_model_path()), compile=False)
+        self.eye_disease_model = tf.keras.models.load_model(os.path.join(project_path, Disease.get_model_path()),
+                                                            compile=False)
         self.json_file = {'is_eye': 'false', 'is_closed': 'false', 'result': '0', 'percentage': '0'}
 
     def preprocess_image_for_eye_check(self, image):
@@ -33,7 +35,7 @@ class Disease:
         preprocessed_image = img_to_array(preprocessed_image)
         preprocessed_image = np.expand_dims(preprocessed_image, axis=0)
         preprocessed_image = np.array(preprocessed_image) / 255.0
-        return (preprocessed_image)
+        return preprocessed_image
 
     def check_eye(self, image):
         processed_image = self.preprocess_image_for_eye_check(image)
@@ -54,14 +56,15 @@ class Disease:
         else:
             return False
 
-    def preprocess_image_for_disease(self,image):
+    def preprocess_image_for_disease(self, image):
         preprocessed_image = load_img('./eye_image.jpg', target_size=(200, 200))
         preprocessed_image = img_to_array(preprocessed_image)
         preprocessed_image = np.expand_dims(preprocessed_image, axis=0)
         preprocessed_image = np.array(preprocessed_image) / 255.0
-        return (preprocessed_image)
+        return preprocessed_image
 
-    def get_disease_label(self, label):
+    @staticmethod
+    def get_disease_label(label):
         label = int(label)
         if label == 0:
             return 'Arcus Senilis'
@@ -78,13 +81,13 @@ class Disease:
 
     def check_disease(self, image):
         eye_flag = self.check_eye(image)
-        if eye_flag == True:
+        if eye_flag:
             processed_image = self.preprocess_image_for_disease(image)
             disease_pred = self.eye_disease_model.predict(processed_image)
             print(disease_pred)
             label = np.argmax(disease_pred[0])
-            if disease_pred[0][label] >0.80:
-                disease = self.get_disease_label(label)
+            if disease_pred[0][label] > 0.80:
+                disease = Disease.get_disease_label(label)
                 self.json_file['result'] = disease
                 percentage = disease_pred[0][label]
                 percentage = round(percentage * 100, 4)
@@ -92,5 +95,3 @@ class Disease:
             else:
                 self.json_file['result'] = 'unknown'
         return self.json_file
-
-
