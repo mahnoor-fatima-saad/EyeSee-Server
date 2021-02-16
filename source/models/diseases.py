@@ -69,7 +69,7 @@ class Disease:
         if label == 0:
             return 'Arcus Senilis'
         elif label == 1:
-            return 'Cataracts'
+            return 'Cataract'
         elif label == 2:
             return 'Endophthalmitis'
         elif label == 3:
