@@ -1,7 +1,7 @@
 from keras.models import load_model
 from keras.preprocessing.image import load_img
 from keras.preprocessing.image import img_to_array
-from keras.applications.resnet50 import preprocess_input
+from keras import applications as keras_models
 
 import numpy as np
 from PIL import Image, ImageOps
@@ -20,7 +20,8 @@ class Fundus:
 
     @staticmethod
     def get_model_path():
-        model_path = 'models\\fundus\\fundus_disease_detection.h5'
+        # model_path = 'models\\fundus\\fundus_disease_detection.h5'
+        model_path = 'models\\fundus\\fundus_disease_xception.h5'
         return model_path
 
     def __init__(self):
@@ -34,9 +35,12 @@ class Fundus:
         image.save('fundus_img.jpg')
         processed_image = load_img('./fundus_img.jpg', target_size=(224, 224))
         processed_image = img_to_array(processed_image)
+        # only for Xception model as in data gen rescaling 1./255 was used
+        processed_image = processed_image / 255.0
         processed_image = processed_image.reshape((1, processed_image.shape[0],
                                                    processed_image.shape[1], processed_image.shape[2]))
-        # processed_image = preprocess_input(processed_image)
+        # processed_image = keras_models.resnet50.preprocess_input(processed_image)
+        # processed_image = keras_models.xception.preprocess_input(processed_image)
         return processed_image
 
     def preprocess_image_for_detection(self, image):
