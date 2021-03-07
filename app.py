@@ -9,6 +9,11 @@ from source.models.infections import Infection
 
 app = Flask(__name__)
 
+fundus = Fundus()
+diseases = Disease()
+# disorders = Disorders()
+# infections = Infection()
+
 
 @app.route('/check_conn', methods=['GET'])
 def check_conn():
@@ -19,7 +24,6 @@ def check_conn():
 
 @app.route('/fundus', methods=['POST'])
 def fundus_analysis():
-    fundus = Fundus()
 
     try:
         image = request.files.get('image', '')
@@ -32,7 +36,6 @@ def fundus_analysis():
 
 # @app.route('/disorders', methods=['POST'])
 # def disorders_analysis():
-#     disorders = Disorders()
 #
 #     try:
 #         image = request.files.get('image', '')
@@ -45,7 +48,6 @@ def fundus_analysis():
 
 @app.route('/diseases', methods=['POST'])
 def disease_analysis():
-    diseases = Disease()
 
     try:
         image = request.files.get('image', '')
@@ -58,7 +60,6 @@ def disease_analysis():
 
 # @app.route('/infections', methods=['POST'])
 # def infection_analysis():
-#     infections = Infection()
 
 
 if __name__ == '__main__':
