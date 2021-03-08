@@ -50,8 +50,8 @@ class Disease:
                 self.json_file['is_eye'] = 'true'
                 return True
         elif label == 0:
-            if np.max(eye_pred[0][label]) > 80:
-                self.json_file['closed'] = 'true'
+            if np.max(eye_pred[0][label]) > 0.80:
+                self.json_file['is_closed'] = 'true'
                 return False
         else:
             return False
