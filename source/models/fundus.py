@@ -90,15 +90,17 @@ class Fundus:
         # update json
         self.json_file['result'] = label
         # get percentage
+        print(prediction)
         percentage = prediction[0][index]
         percentage = round(percentage * 100, 4)
         if percentage < 80.0:
             self.json_file['predicted'] = False
-            print('Percentage: ' + str(percentage))
             return
         self.json_file['percentage'] = str(percentage)
 
     def prediction(self, image):
+        # initalize the json file back to normal
+        self.json_file = {'is_fundus': 'false', 'result': '0', 'percentage': '0', 'predicted': True}
         # Pre process image
         preprocess_for_detection = self.preprocess_image_for_detection(image)
         # check if it's an fundus image
