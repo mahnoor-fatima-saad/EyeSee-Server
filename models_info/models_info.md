@@ -2,6 +2,7 @@
 > fundus_detection.h5  
 > fundus_disease_detection.h5  
 > fundus_disease_xception.h5  
+> fundus_disease_resnet.h5
 > ###single_models
 >> fundus_cataract.h5  
 >> fundus_glaucoma.h5  
