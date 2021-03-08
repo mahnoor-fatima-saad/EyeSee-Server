@@ -82,7 +82,7 @@ class Disease:
     def check_disease(self, image):
 
         self.json_file = {'is_eye': 'false', 'is_closed': 'false', 'result': '0', 'percentage': '0'}
-        
+
         eye_flag = self.check_eye(image)
         if eye_flag:
             processed_image = self.preprocess_image_for_disease(image)
