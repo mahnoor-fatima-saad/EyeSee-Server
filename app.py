@@ -12,7 +12,7 @@ app = Flask(__name__)
 fundus = Fundus()
 diseases = Disease()
 disorders = Disorders()
-# infections = Infection()
+infections = Infection()
 
 
 @app.route('/check_conn', methods=['GET'])
@@ -58,8 +58,17 @@ def disease_analysis():
     return diseases.json_file
 
 
-# @app.route('/infections', methods=['POST'])
-# def infection_analysis():
+@app.route('/infections', methods=['POST'])
+def infection_analysis():
+
+    try:
+        image = request.files.get('image', '')
+        return infections.check_infection(image)
+    except Exception as err:
+        print(err)
+
+    return infections.json_file
+
 
 
 if __name__ == '__main__':
