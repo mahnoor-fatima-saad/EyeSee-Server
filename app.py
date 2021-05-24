@@ -70,6 +70,5 @@ def infection_analysis():
     return infections.json_file
 
 
-
 if __name__ == '__main__':
     app.run()

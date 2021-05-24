@@ -13,4 +13,7 @@
 ## diseases
 > detection_model.h5  
 > eye_disease_detection.h5
+## infections  
+> infection_dectection.h5
+> is_eye_infection_model.h5
 
