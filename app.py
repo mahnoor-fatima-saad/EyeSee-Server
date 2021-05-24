@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 fundus = Fundus()
 diseases = Disease()
-# disorders = Disorders()
+disorders = Disorders()
 # infections = Infection()
 
 
@@ -34,16 +34,16 @@ def fundus_analysis():
     return fundus.json_file
 
 
-# @app.route('/disorders', methods=['POST'])
-# def disorders_analysis():
-#
-#     try:
-#         image = request.files.get('image', '')
-#         return disorders.prediction(image)
-#     except Exception as err:
-#         print(err)
-#
-#     return disorders.json_file
+@app.route('/disorders', methods=['POST'])
+def disorders_analysis():
+
+    try:
+        image = request.files.get('image', '')
+        return disorders.prediction(image)
+    except Exception as err:
+        print(err)
+
+    return disorders.json_file
 
 
 @app.route('/diseases', methods=['POST'])
