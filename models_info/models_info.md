@@ -10,6 +10,7 @@
 >> fundus_myopia.h5
 ## disorders
 > disorder_detection.h5
+> disorder_is_eye.h5
 ## diseases
 > detection_model.h5  
 > eye_disease_detection.h5
