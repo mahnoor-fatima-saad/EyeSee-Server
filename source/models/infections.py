@@ -97,5 +97,6 @@ class Infection:
                 percentage = round(percentage * 100, 4)
                 self.json_file['percentage'] = percentage
             else:
-                self.json_file['result'] = 'unknown'
+                self.json_file['result'] = 'Unknown'
+                self.json_file['percentage'] = '0.0'
         return self.json_file
