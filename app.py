@@ -1,6 +1,5 @@
-import flask
 from flask import Flask
-from flask import request, jsonify
+from flask import request, jsonify, render_template
 
 from source.models.disorders import Disorders
 from source.models.fundus import Fundus
@@ -14,6 +13,9 @@ diseases = Disease()
 disorders = Disorders()
 infections = Infection()
 
+@app.route('/', methods=['GET'])
+def dashboard():
+    return render_template('index.html')
 
 @app.route('/check_conn', methods=['GET'])
 def check_conn():
